@@ -1,0 +1,98 @@
+tell application "System Settings"
+	reveal anchor "output" of pane id "com.apple.Sound-Settings.extension"
+end tell
+
+delay 0.1
+
+set rbInput to 2
+set rbOutput to 1
+
+tell application "System Settings"
+	activate
+	reveal pane id "com.apple.Sound-Settings.extension"
+end tell
+tell application "System Events"
+	tell its application process "System Settings"
+		
+		repeat until exists its window "Sound"
+		end repeat
+		repeat until (exists its group 2 of scroll area 1 of group 1 of list 2 of splitter group 1 of list 1 of window "Sound") or (exists its group 2 of scroll area 1 of group 1 of group 2 of splitter group 1 of group 1 of window "Sound")
+		end repeat
+		
+		if (exists its list 1 of window "Sound") then
+			
+			tell its group 2 of scroll area 1 of group 1 of list 2 of splitter group 1 of list 1 of window "Sound"
+				
+				repeat until exists its tab group 1
+				end repeat
+				
+				tell its tab group 1
+					repeat until exists its radio button rbInput
+					end repeat
+					delay 0.1
+					click its radio button rbInput
+				end tell
+				
+				tell its tab group 1
+					repeat until exists its radio button rbOutput
+					end repeat
+					delay 0.1
+					click its radio button rbOutput
+				end tell
+				
+				repeat until exists its scroll area 1
+				end repeat
+				
+				tell its scroll area 1
+					set RowA to (its row 1 of outline 1)
+					set RowB to (its row 2 of outline 1)
+					if (selected of RowA) then
+						set selected of RowB to true
+					else
+						set selected of RowA to true
+					end if
+				end tell
+				
+			end tell
+			
+		else
+			
+			tell its group 2 of scroll area 1 of group 1 of group 2 of splitter group 1 of group 1 of window "Sound"
+				
+				repeat until exists its tab group 1
+				end repeat
+				
+				tell its tab group 1
+					repeat until exists its radio button rbInput
+					end repeat
+					delay 0.1
+					click its radio button rbInput
+				end tell
+				
+				tell its tab group 1
+					repeat until exists its radio button rbOutput
+					end repeat
+					delay 0.1
+					click its radio button rbOutput
+				end tell
+				
+				repeat until exists its scroll area 1
+				end repeat
+				
+				tell its scroll area 1
+					set RowA to (its row 1 of outline 1)
+					set RowB to (its row 2 of outline 1)
+					if (selected of RowA) then
+						set selected of RowB to true
+					else
+						set selected of RowA to true
+					end if
+				end tell
+			end tell
+			
+		end if
+		
+	end tell
+end tell
+
+quit application "System Settings"
